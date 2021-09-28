@@ -13,11 +13,11 @@
       </ion-header>
     
       <ion-list>
-          <exception-card title="Exception 3" status="open" />
+          <exception-card @click="$router.push('/tabs/dashboard/exceptions/1234')" title="Exception 3" status="open" />
 
-          <exception-card title="Exception 2" status="read" />
+          <exception-card @click="$router.push('/tabs/dashboard/exceptions/1234')" title="Exception 2" status="read" />
 
-          <exception-card title="Exception 1" status="fixed" />
+          <exception-card @click="$router.push('/tabs/dashboard/exceptions/1234')" title="Exception 1" status="fixed" />
       </ion-list>
     </ion-content>
   </ion-page>

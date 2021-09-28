@@ -14,18 +14,26 @@
       
       <div class="p-4 space-y-5">
           <div>
-              <h2 class="font-bold text-2xl">Sebastiaan Kloos</h2>
-              <p class="text-sm text-gray-500">sebastiaan@codecycler.dev</p>
+              <h2 class="font-bold text-2xl">{{ $store.state.user.name }} {{ $store.state.user.surname }}</h2>
+              <p class="text-sm text-gray-500">{{ $store.state.user.email }}</p>
           </div>
 
           <div>
               <p>We currently only support the hosted version of LaraBug. You can manage your account at LaraBug.com.</p>
           </div>
 
-          <div>
-              <ion-button @click="openAccountSettings">
-                  Manage account
-              </ion-button>
+          <div class="grid grid-cols-2 gap-4">
+              <div>
+                  <ion-button @click="openAccountSettings" size="block">
+                      Manage account
+                  </ion-button>
+              </div>
+
+              <div>
+                  <ion-button @click="$store.dispatch('logout'); $router.go('/')" size="block">
+                      Logout
+                  </ion-button>
+              </div>
           </div>
 
           <div>

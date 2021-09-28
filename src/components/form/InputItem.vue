@@ -1,0 +1,43 @@
+<template>
+    <div class="flex-col space-y-1">
+        <div>
+            <label class="text-lg font-medium" v-if="label" :for="`input_${name}`">{{ label }}</label>
+        </div>
+
+        <input
+            class="block dark:bg-gray-600 w-full h-10 transition duration-75 border-gray-300 dark:border-gray-800 rounded-lg shadow-sm focus:ring-1 focus:ring-inset focus:ring-red-600 focus:border-red-600"
+            :type="type"
+            :id="`input_${name}`"
+            :name="name"
+            @change="$emit('update:modelValue', $event.target.value)">
+    </div>
+</template>
+
+<script>
+export default {
+    name: "InputItem",
+    props: {
+        label: {
+            type: String,
+            required: false,
+        },
+        name: {
+            type: String,
+            required: true,
+        },
+        modelValue: {},
+        type: {
+            type: String,
+            required: false,
+            default: 'text',
+        },
+    },
+    emits: [
+        'update:modelValue',
+    ],
+}
+</script>
+
+<style scoped>
+
+</style>

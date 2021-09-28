@@ -1,6 +1,11 @@
 export default {
 
     /**
+     * The key is used for encrypting / decrypting stuff
+     */
+    key: process.env.VUE_APP_KEY,
+
+    /**
      * Version number being displayed in the app
      */
     version: process.env.VUE_APP_VERSION,

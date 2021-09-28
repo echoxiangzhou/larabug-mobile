@@ -13,9 +13,9 @@
       </ion-header>
       
       <ion-list>
-          <project-card name="LaraBug Application" :unread="5" />
+          <project-card name="LaraBug Application" :unread="5" :total="10" />
 
-          <project-card name="Ploi Application" :unread="0" />
+          <project-card name="Ploi Application" :unread="0" :total="10" />
       </ion-list>
     </ion-content>
   </ion-page>

@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router';
+import { store, key } from "./store";
 
 import { IonicVue } from '@ionic/vue';
 
@@ -24,10 +25,17 @@ import '@ionic/vue/css/display.css';
 import './theme/variables.css';
 import './theme/tailwind.css';
 
-const app = createApp(App)
-  .use(IonicVue)
-  .use(router);
-  
-router.isReady().then(() => {
-  app.mount('#app');
+store.dispatch('init').then(() => {
+  const app = createApp(App)
+      .use(IonicVue)
+      .use(router)
+      .use(store, key);
+
+  store.subscribe((payload) => {
+    store.dispatch('save');
+  });
+
+  router.isReady().then(() => {
+    app.mount('#app');
+  });
 });
