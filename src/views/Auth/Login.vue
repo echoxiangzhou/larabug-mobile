@@ -32,6 +32,7 @@
 import { IonPage, IonContent, IonButton } from "@ionic/vue";
 import InputItem from "../../components/form/InputItem";
 import UserService from "../../services/UserService";
+import Crypto from "../../helper/Crypto";
 
 export default {
     name: "Login",
@@ -55,8 +56,10 @@ export default {
     },
     methods: {
         async login() {
+            const crypto = new Crypto();
+
             await this.client.login(this.email, this.password).then(async (res) => {
-                await this.$store.dispatch('login', res.token);
+                await this.$store.dispatch('login', crypto.encrypt(res.token));
                 await this.$store.dispatch('user', res.user);
 
                 this.error = '';

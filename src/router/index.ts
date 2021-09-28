@@ -36,6 +36,11 @@ const routes: Array<RouteRecordRaw> = [
         beforeEnter: protectedRoute
       },
       {
+        path: 'projects/:id',
+        component: () => import('@/views/Project/Exceptions.vue'),
+        beforeEnter: protectedRoute
+      },
+      {
         path: 'account',
         component: () => import('@/views/Account.vue'),
         beforeEnter: protectedRoute

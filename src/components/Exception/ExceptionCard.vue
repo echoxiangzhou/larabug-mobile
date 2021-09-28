@@ -10,7 +10,7 @@
 
         <div>
             <h2>{{ title }}</h2>
-            <p class="text-gray-500 text-sm">3m ago | {{ status }}</p>
+            <p class="text-gray-500 text-sm">{{ date }} | {{ status }}</p>
         </div>
     </div>
 </template>
@@ -28,6 +28,10 @@ export default {
         status: {
             type: String,
             required: true,
+        },
+        date: {
+            type: String,
+            required: false,
         },
     },
 }
