@@ -27,6 +27,10 @@
                   Manage account
               </ion-button>
           </div>
+
+          <div>
+              <p class="text-center text-gray-500 text-sm">App version: {{ config.version }}</p>
+          </div>
       </div>
     </ion-content>
   </ion-page>
@@ -34,10 +38,16 @@
 
 <script lang="ts">
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton } from '@ionic/vue';
+import config from "@/config";
 
 export default  {
   name: 'Tab3',
   components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonButton },
+  data() {
+      return {
+          config: config,
+      }
+  },
   methods: {
     openAccountSettings() {
         window.open('https://www.larabug.com/panel/profile', '_blank');
