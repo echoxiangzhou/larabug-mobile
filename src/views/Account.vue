@@ -1,0 +1,47 @@
+<template>
+  <ion-page>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Account</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content :fullscreen="true">
+      <ion-header collapse="condense">
+        <ion-toolbar>
+          <ion-title size="large">Account</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      
+      <div class="p-4 space-y-5">
+          <div>
+              <h2 class="font-bold text-2xl">Sebastiaan Kloos</h2>
+              <p class="text-sm text-gray-500">sebastiaan@codecycler.dev</p>
+          </div>
+
+          <div>
+              <p>We currently only support the hosted version of LaraBug. You can manage your account at LaraBug.com.</p>
+          </div>
+
+          <div>
+              <ion-button @click="openAccountSettings">
+                  Manage account
+              </ion-button>
+          </div>
+      </div>
+    </ion-content>
+  </ion-page>
+</template>
+
+<script lang="ts">
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton } from '@ionic/vue';
+
+export default  {
+  name: 'Tab3',
+  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonButton },
+  methods: {
+    openAccountSettings() {
+        window.open('https://www.larabug.com/panel/profile', '_blank');
+    },
+  },
+}
+</script>
