@@ -2,7 +2,7 @@
   <ion-page>
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
-      <ion-tab-bar slot="bottom">
+      <ion-tab-bar slot="bottom" class="py-3">
         <ion-tab-button tab="dashboard" href="/tabs/dashboard">
           <ion-icon :icon="home" />
           <ion-label>Dashboard</ion-label>
@@ -15,7 +15,7 @@
         
         <ion-tab-button tab="account" href="/tabs/account">
           <ion-icon :icon="personCircle" />
-          <ion-label>Account</ion-label>
+          <ion-label>Profile</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
