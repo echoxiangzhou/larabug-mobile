@@ -1,0 +1,6 @@
+{
+	"appId": "com.larabug.app",
+	"appName": "LaraBugTemp",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">LaraBugTemp</string>
+    <string name="title_activity_main">LaraBugTemp</string>
+    <string name="package_name">com.larabug.app</string>
+    <string name="custom_url_scheme">com.larabug.app</string>
+</resources>
