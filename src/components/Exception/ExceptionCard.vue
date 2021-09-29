@@ -9,7 +9,7 @@
         </div>
 
         <div>
-            <h2>{{ `${title.substr(0, 100)}...` }}</h2>
+            <h2 class="break-all">{{ `${title.substr(0, 100)}...` }}</h2>
             <p class="text-gray-500 text-sm">{{ date }} | {{ status }}</p>
         </div>
     </div>
