@@ -2,16 +2,16 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Account</ion-title>
+        <ion-title>Profile</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Account</ion-title>
+          <ion-title size="large">Profile</ion-title>
         </ion-toolbar>
       </ion-header>
-      
+
       <div class="p-4 space-y-5">
           <div>
               <h2 class="font-bold text-2xl">{{ $store.state.user.name }} {{ $store.state.user.surname }}</h2>
@@ -49,7 +49,7 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton } from 
 import config from "@/config";
 
 export default  {
-  name: 'Tab3',
+  name: 'Profile',
   components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonButton },
   data() {
       return {

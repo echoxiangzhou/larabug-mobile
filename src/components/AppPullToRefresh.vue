@@ -1,5 +1,5 @@
 <template>
-    <ion-refresher slot="fixed" @ionRefresh="run($event)">
+    <ion-refresher slot="fixed" @ionRefresh="run($event)" pull-factor="0.5" pull-min="100" pull-max="200">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 </template>

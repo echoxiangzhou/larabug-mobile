@@ -43,9 +43,15 @@ import ExceptionService from "@/services/ExceptionService";
 import RefreshEvent from "@/mixins/RefreshEvent";
 
 export default {
-    name: 'Tab1',
+    name: 'Dashboard',
     components: {
-        ExceptionCard, IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonList,
+        ExceptionCard,
+        IonHeader,
+        IonToolbar,
+        IonTitle,
+        IonContent,
+        IonPage,
+        IonList,
         AppPullToRefresh
     },
     data() {
