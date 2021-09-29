@@ -6,7 +6,7 @@
                     <h1 class="text-4xl"><span class="font-bold">Lara</span><span class="text-red-700">Bug</span></h1>
                 </div>
 
-                <div class="max-w-md mx-auto bg-gray-800 rounded-lg p-4">
+                <div class="max-w-md mx-auto bg-gray-200 dark:bg-gray-800 rounded-lg p-4">
 
                     <form class="space-y-5">
 

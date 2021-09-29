@@ -13,23 +13,49 @@
       </ion-header>
     
       <ion-list>
-          <exception-card @click="$router.push('/tabs/dashboard/exceptions/1234')" title="Exception 3" status="open" />
-
-          <exception-card @click="$router.push('/tabs/dashboard/exceptions/1234')" title="Exception 2" status="read" />
-
-          <exception-card @click="$router.push('/tabs/dashboard/exceptions/1234')" title="Exception 1" status="fixed" />
+          <exception-card
+              v-for="(exception, index) in exceptions"
+              :key="index"
+              @click="$router.push(`/tabs/dashboard/exceptions/${exception.id}`)"
+              :date="exception.human_date"
+              :title="exception.exception"
+              :status="exception.status"
+          />
       </ion-list>
     </ion-content>
   </ion-page>
 </template>
 
-<script lang="ts">
+<script>
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList } from '@ionic/vue';
 import ExceptionCard from "@/components/Exception/ExceptionCard.vue";
+import ExceptionService from "@/services/ExceptionService";
 
 export default  {
   name: 'Tab1',
   components: {
-      ExceptionCard, IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonList }
+      ExceptionCard, IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonList
+  },
+  data() {
+    return {
+      exceptions: [],
+    };
+  },
+  computed: {
+    client() {
+      return new ExceptionService();
+    },
+  },
+  ionViewWillEnter() {
+      // Load the exceptions
+      this.getData();
+  },
+  methods: {
+    async getData() {
+      await this.client.all().then(res => {
+        this.exceptions = res.data;
+      });
+    },
+  },
 }
 </script>

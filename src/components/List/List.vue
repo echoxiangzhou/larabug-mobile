@@ -1,7 +1,7 @@
 <template>
-    <div class="bg-gray-800 rounded-lg p-4 space-y-3">
+    <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 space-y-3">
         <div v-if="label">
-            <h4 class="font-bold text-xl">{{ label }}</h4>
+            <h4 class="font-bold text-xl text-red-700">{{ label }}</h4>
         </div>
 
         <slot />
