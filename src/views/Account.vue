@@ -30,7 +30,7 @@
               </div>
 
               <div>
-                  <ion-button @click="$store.dispatch('logout'); $router.go('/')" size="block">
+                  <ion-button @click="$store.dispatch('logout'); $router.push('/')" size="block">
                       Logout
                   </ion-button>
               </div>
