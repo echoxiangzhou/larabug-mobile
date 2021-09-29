@@ -81,7 +81,7 @@ export default {
     },
     methods: {
         async getData() {
-            await this.client.show(this.$route.params.id).then(res => {
+            await this.client.show(this.$route.params.exceptionId).then(res => {
                 this.exception = res.data;
             });
         },

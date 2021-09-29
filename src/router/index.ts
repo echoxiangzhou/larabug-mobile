@@ -26,7 +26,7 @@ const routes: Array<RouteRecordRaw> = [
         beforeEnter: protectedRoute
       },
       {
-        path: 'dashboard/exceptions/:id',
+        path: 'dashboard/exceptions/:exceptionId',
         component: () => import('@/views/Exceptions/Show.vue'),
         beforeEnter: protectedRoute
       },
@@ -38,6 +38,11 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'projects/:id',
         component: () => import('@/views/Project/Exceptions.vue'),
+        beforeEnter: protectedRoute
+      },
+      {
+        path: 'projects/:id/exceptions/:exceptionId',
+        component: () => import('@/views/Exceptions/Show.vue'),
         beforeEnter: protectedRoute
       },
       {

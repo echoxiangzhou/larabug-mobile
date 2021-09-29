@@ -19,6 +19,7 @@
                 <exception-card
                     v-for="(exception, index) in exceptions"
                     :key="index"
+                    @click="$router.push(`/tabs/projects/${$route.params.id}/exceptions/${exception.id}`)"
                     :title="exception.exception"
                     status="read"
                     :date="exception.human_date"
