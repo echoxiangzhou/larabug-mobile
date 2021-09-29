@@ -1,7 +1,7 @@
 <template>
     <div class="flex-col space-y-1">
         <div>
-            <label class="text-lg font-medium" v-if="label" :for="`input_${name}`">{{ label }}</label>
+            <label class="text-lg font-medium text-gray-900 dark:text-white" v-if="label" :for="`input_${name}`">{{ label }}</label>
         </div>
 
         <input
