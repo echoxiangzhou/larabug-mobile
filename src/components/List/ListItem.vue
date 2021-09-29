@@ -5,7 +5,7 @@
         </div>
 
         <div class="flex-1">
-            <p class="text-gray-300">{{ value }}</p>
+            <p class="text-gray-800 dark:text-gray-300">{{ value }}</p>
         </div>
     </div>
 </template>
