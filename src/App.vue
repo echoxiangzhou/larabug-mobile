@@ -16,3 +16,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style>
+ion-item {
+    --padding-start: 0px;
+}
+</style>

@@ -96,9 +96,3 @@ export default {
     },
 }
 </script>
-
-<style scoped>
-ion-item {
-    --padding-start: 0px;
-}
-</style>
