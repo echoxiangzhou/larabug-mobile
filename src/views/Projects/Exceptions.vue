@@ -25,22 +25,59 @@
                     :date="exception.human_date"
                 />
             </ion-list>
+
+            <ion-infinite-scroll
+                @ionInfinite="getData($event)"
+                threshold="100px"
+                id="infinite-scroll"
+                :disabled="isDisabled"
+            >
+                <ion-infinite-scroll-content
+                    loading-spinner="bubbles"
+                    loading-text="Loading more exceptions 🐞">
+                </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
         </ion-content>
     </ion-page>
 </template>
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonBackButton } from '@ionic/vue';
+import {
+    IonPage,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonList,
+    IonButtons,
+    IonBackButton,
+    IonInfiniteScroll,
+    IonInfiniteScrollContent
+} from '@ionic/vue';
 import ProjectService from "@/services/ProjectService";
 import ExceptionCard from "../../components/Exception/ExceptionCard";
 
 export default {
     name: 'Exceptions',
-    components: {ExceptionCard, IonList, IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonButtons, IonBackButton },
+    components: {
+        ExceptionCard,
+        IonList,
+        IonHeader,
+        IonToolbar,
+        IonTitle,
+        IonContent,
+        IonPage,
+        IonButtons,
+        IonBackButton,
+        IonInfiniteScroll,
+        IonInfiniteScrollContent,
+    },
     data() {
         return {
             project: {},
             exceptions: [],
+            isDisabled: false,
+            page: 1,
         }
     },
     computed: {
@@ -55,13 +92,28 @@ export default {
         this.getData();
     },
     methods: {
-        async getData() {
-            await this.client.show(this.projectId).then(res => {
-                this.project = res.data;
-            });
+        async getData(event = null) {
+            if (!event) {
+                await this.client.show(this.projectId).then(res => {
+                    this.project = res.data;
+                });
+            }
 
-            await this.client.exceptions(this.projectId).then(res => {
-                this.exceptions = res.data;
+            if (event) {
+                this.page++;
+            }
+
+            await this.client.exceptions(this.projectId, this.page).then(res => {
+                if (event) {
+                    this.exceptions = [...this.exceptions, ...res.data]
+                    event.target.complete();
+
+                    if (this.page === res.meta.last_page) {
+                        this.isDisabled = true;
+                    }
+                } else {
+                    this.exceptions = res.data;
+                }
             });
         },
     },
