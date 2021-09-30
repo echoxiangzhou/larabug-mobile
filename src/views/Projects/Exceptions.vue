@@ -14,6 +14,8 @@
                 <ion-toolbar>
                     <ion-title size="large">{{ project.title }}</ion-title>
                 </ion-toolbar>
+
+                <ion-searchbar color="light" v-model="search" debounce="500"></ion-searchbar>
             </ion-header>
 
             <app-pull-to-refresh :do-refresh="doRefresh"></app-pull-to-refresh>
@@ -55,6 +57,7 @@ import {
     IonContent,
     IonList,
     IonButtons,
+    IonSearchbar,
     IonBackButton,
     IonInfiniteScroll,
     IonInfiniteScrollContent
@@ -77,6 +80,7 @@ export default {
         IonContent,
         IonPage,
         IonButtons,
+        IonSearchbar,
         IonBackButton,
         IonInfiniteScroll,
         IonInfiniteScrollContent,
@@ -88,6 +92,7 @@ export default {
             exceptions: [],
             isDisabled: false,
             page: 1,
+            search: '',
         }
     },
     mixins: [
@@ -106,7 +111,7 @@ export default {
     },
     methods: {
         async getData(event = null) {
-            if (!event) {
+            if (!event && this.search === '') {
                 await this.client.show(this.projectId).then(res => {
                     this.project = res.data;
                 });
@@ -116,7 +121,7 @@ export default {
                 this.page++;
             }
 
-            await this.client.exceptions(this.projectId, this.page).then(res => {
+            await this.client.exceptions(this.projectId, this.page, this.search).then(res => {
                 if (event) {
                     this.exceptions = [...this.exceptions, ...res.data]
                     event.target.complete();
@@ -137,6 +142,15 @@ export default {
                 this.completeEvent(event);
             });
         }
+    },
+    watch: {
+        search: {
+            handler() {
+                this.getData();
+            },
+            immediate: false,
+            deep: false,
+        },
     },
 }
 </script>
