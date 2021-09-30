@@ -10,7 +10,7 @@ class ProjectService extends Service {
     }
 
     async store(data: string) {
-        return await this._fetch(`/projects/`, {
+        return await this._fetch(`/projects`, {
             method: 'POST',
             body: JSON.stringify(data),
         });
