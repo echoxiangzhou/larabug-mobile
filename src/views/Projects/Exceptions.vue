@@ -8,12 +8,17 @@
                 <ion-title>{{ project.title }}</ion-title>
             </ion-toolbar>
         </ion-header>
+
         <ion-content :fullscreen="true">
             <ion-header collapse="condense">
                 <ion-toolbar>
                     <ion-title size="large">{{ project.title }}</ion-title>
                 </ion-toolbar>
             </ion-header>
+
+            <app-pull-to-refresh :do-refresh="doRefresh"></app-pull-to-refresh>
+
+            <app-alert class="mx-4" v-if="!exceptions.length">There are no recent exceptions 🐞</app-alert>
 
             <ion-list>
                 <exception-card
@@ -56,10 +61,14 @@ import {
 } from '@ionic/vue';
 import ProjectService from "@/services/ProjectService";
 import ExceptionCard from "../../components/Exception/ExceptionCard";
+import AppPullToRefresh from "../../components/AppPullToRefresh";
+import AppAlert from "../../components/AppAlert";
+import RefreshEvent from "../../mixins/RefreshEvent";
 
 export default {
     name: 'Exceptions',
     components: {
+        AppPullToRefresh,
         ExceptionCard,
         IonList,
         IonHeader,
@@ -71,6 +80,7 @@ export default {
         IonBackButton,
         IonInfiniteScroll,
         IonInfiniteScrollContent,
+        AppAlert,
     },
     data() {
         return {
@@ -80,6 +90,9 @@ export default {
             page: 1,
         }
     },
+    mixins: [
+        RefreshEvent,
+    ],
     computed: {
         client() {
             return new ProjectService();
@@ -116,6 +129,14 @@ export default {
                 }
             });
         },
+        async doRefresh(event) {
+            this.page = 1;
+
+            await this.client.exceptions(this.projectId, this.page).then(res => {
+                this.exceptions = res.data;
+                this.completeEvent(event);
+            });
+        }
     },
 }
 </script>
