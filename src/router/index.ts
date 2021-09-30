@@ -54,6 +54,11 @@ const routes: Array<RouteRecordRaw> = [
         path: 'account',
         component: () => import('@/views/Account.vue'),
         beforeEnter: protectedRoute
+      },
+      {
+        path: 'more',
+        component: () => import('@/views/More.vue'),
+        beforeEnter: protectedRoute
       }
     ]
   }

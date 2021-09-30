@@ -17,6 +17,10 @@
           <ion-icon :icon="personCircle" />
           <ion-label>Profile</ion-label>
         </ion-tab-button>
+        <ion-tab-button tab="more" href="/tabs/more">
+          <ion-icon :icon="informationCircle" />
+          <ion-label>More</ion-label>
+        </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
   </ion-page>
@@ -24,7 +28,7 @@
 
 <script lang="ts">
 import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterOutlet } from '@ionic/vue';
-import { home, briefcase, personCircle } from 'ionicons/icons';
+import { home, briefcase, personCircle, informationCircle } from 'ionicons/icons';
 
 export default {
   name: 'Tabs',
@@ -34,6 +38,7 @@ export default {
       home,
       briefcase,
       personCircle,
+      informationCircle,
     }
   }
 }
