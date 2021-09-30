@@ -22,14 +22,15 @@
 
             <app-alert class="mx-4" v-if="!exceptions.length">There are no recent exceptions 🐞</app-alert>
 
-            <ion-list>
+            <ion-list lines="none">
                 <exception-card
                     v-for="(exception, index) in exceptions"
                     :key="index"
                     @click="$router.push(`/tabs/projects/${$route.params.id}/exceptions/${exception.id}`)"
                     :title="exception.exception"
-                    status="read"
+                    :status="exception.status"
                     :date="exception.human_date"
+                    :id="exception.id"
                 />
             </ion-list>
 

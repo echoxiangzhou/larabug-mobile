@@ -16,7 +16,7 @@
 
             <app-alert class="mx-4" v-if="!exceptions.length">There are no recent exceptions 🐞</app-alert>
 
-            <ion-list>
+            <ion-list lines="none">
                 <exception-card
                     v-for="(exception, index) in exceptions"
                     :key="index"
@@ -24,6 +24,7 @@
                     :date="exception.human_date"
                     :title="exception.exception"
                     :status="exception.status"
+                    :id="exception.id"
                 />
             </ion-list>
         </ion-content>
