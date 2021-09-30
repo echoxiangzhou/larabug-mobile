@@ -16,7 +16,7 @@ class ProjectService extends Service {
         });
     }
 
-    async exceptions(id: string, page = 1, search = null) {
+    async exceptions(id: string, page = 1, search = '') {
         return await this._fetch(`/projects/${id}/exceptions?page=${page}&search=${search}`);
     }
 
