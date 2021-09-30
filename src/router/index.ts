@@ -36,8 +36,13 @@ const routes: Array<RouteRecordRaw> = [
         beforeEnter: protectedRoute
       },
       {
+        path: 'projects/create',
+        component: () => import('@/views/Projects/Create.vue'),
+        beforeEnter: protectedRoute
+      },
+      {
         path: 'projects/:id',
-        component: () => import('@/views/Project/Exceptions.vue'),
+        component: () => import('@/views/Projects/Exceptions.vue'),
         beforeEnter: protectedRoute
       },
       {

@@ -14,6 +14,8 @@
 
             <app-pull-to-refresh :do-refresh="doRefresh"></app-pull-to-refresh>
 
+            <app-alert class="mx-4" v-if="!exceptions.length">There are no recent exceptions 🐞</app-alert>
+
             <ion-list>
                 <exception-card
                     v-for="(exception, index) in exceptions"
@@ -39,6 +41,7 @@ import {
 } from '@ionic/vue';
 import ExceptionCard from "@/components/Exception/ExceptionCard";
 import AppPullToRefresh from "@/components/AppPullToRefresh";
+import AppAlert from "@/components/AppAlert";
 import ExceptionService from "@/services/ExceptionService";
 import RefreshEvent from "@/mixins/RefreshEvent";
 
@@ -52,25 +55,30 @@ export default {
         IonContent,
         IonPage,
         IonList,
-        AppPullToRefresh
+        AppPullToRefresh,
+        AppAlert
     },
+
     data() {
         return {
             exceptions: [],
         };
     },
+
     mixins: [
         RefreshEvent,
     ],
+
     computed: {
         client() {
             return new ExceptionService();
         },
     },
+
     ionViewWillEnter() {
-        // Load the exceptions
         this.getData();
     },
+
     methods: {
         async getData(event) {
             await this.client.all().then(res => {
