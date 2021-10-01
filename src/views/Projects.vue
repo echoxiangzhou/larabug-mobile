@@ -16,9 +16,11 @@
 
             <app-pull-to-refresh :do-refresh="doRefresh"></app-pull-to-refresh>
 
-            <app-alert class="mx-4" v-if="!projects.length">You don't have any projects.</app-alert>
+            <app-alert class="mx-4" v-if="!projects.length && !isLoading">You don't have any projects.</app-alert>
 
-            <ion-list>
+            <app-loading v-if="isLoading" />
+
+            <ion-list v-if="!isLoading">
                 <project-card
                     @click="$router.push(`/tabs/projects/${project.id}`)"
                     v-for="(project, index) in projects"
@@ -59,10 +61,13 @@ import RefreshEvent from "@/mixins/RefreshEvent";
 import {
     add,
 } from 'ionicons/icons';
+import Loading from "../mixins/Loading";
+import AppLoading from "../components/AppLoading";
 
 export default {
     name: 'Projects',
     components: {
+        AppLoading,
         ProjectCard, IonList, IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonSearchbar, IonInfiniteScroll, IonInfiniteScrollContent,
         IonFab,
         IonFabButton,
@@ -84,14 +89,16 @@ export default {
         }
     },
     mixins: [
-        RefreshEvent
+        RefreshEvent,
+        Loading,
     ],
     computed: {
         client() {
             return new ProjectService();
         },
     },
-    ionViewWillEnter() {
+    ionViewDidEnter() {
+        this.page = 1;
         this.getData();
     },
     methods: {
@@ -101,10 +108,7 @@ export default {
             }
 
             await this.client.all(this.page, this.search).then(res => {
-                console.log(res);
-                console.log(res.data);
                 if (event) {
-                    console.log('Test');
                     this.projects = [...this.projects, ...res.data];
                     event.target.complete();
 
@@ -114,6 +118,8 @@ export default {
                 } else {
                     this.projects = res.data;
                 }
+
+                this.hideLoading();
             });
         },
 
