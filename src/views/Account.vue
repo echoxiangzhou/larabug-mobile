@@ -49,7 +49,7 @@
     </ion-page>
 </template>
 
-<script lang="ts">
+<script>
 import {IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton} from '@ionic/vue';
 import config from "@/config";
 import {PushNotifications} from "@capacitor/push-notifications";
@@ -57,7 +57,7 @@ import UserService from "@/services/UserService";
 
 export default {
     name: 'Profile',
-    components: {IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonButton},
+    components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonButton },
     data() {
         return {
             config: config,
@@ -99,10 +99,8 @@ export default {
             );
         },
 
-        async registerToken(token: string) {
-            await this.$store.dispatch('update', {
-                pushNotificationStatus: true,
-            });
+        async registerToken(token) {
+            await this.$store.dispatch('togglePushNotifications');
 
             await this.client.registerPushNotificationToken(token);
         }

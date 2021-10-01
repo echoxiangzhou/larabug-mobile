@@ -23,10 +23,8 @@ export const store = createStore<RootState>({
             state.token = '';
             state.pushNotificationStatus = false; // disable push notifications
         },
-        update(state, payload) {
-            Object.keys(payload).forEach((key: string) => {
-                state[key] = payload[key];
-            });
+        togglePushNotifications(state) {
+            state.pushNotificationStatus = !state.pushNotificationStatus;
         },
     },
     actions: {
@@ -45,8 +43,8 @@ export const store = createStore<RootState>({
         logout(context) {
             context.commit('logout');
         },
-        update(context, payload) {
-            context.commit('update', payload);
+        togglePushNotifications(context) {
+            context.commit('togglePushNotifications');
         },
         async init(context) {
             const savedState = await Storage.get({
