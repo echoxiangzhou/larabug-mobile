@@ -107,7 +107,7 @@ export default {
             return this.$route.params.id;
         },
     },
-    ionViewWillEnter() {
+    ionViewDidEnter() {
         this.page = 1;
         this.getData();
     },

@@ -91,7 +91,7 @@ export default {
             return new ProjectService();
         },
     },
-    ionViewWillEnter() {
+    ionViewDidEnter() {
         this.page = 1;
         this.getData();
     },
