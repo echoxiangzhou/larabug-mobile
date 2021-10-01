@@ -14,9 +14,11 @@
 
             <app-pull-to-refresh :do-refresh="doRefresh"></app-pull-to-refresh>
 
-            <app-alert class="mx-4" v-if="!exceptions.length">There are no recent exceptions 🐞</app-alert>
+            <app-alert class="mx-4" v-if="!exceptions.length && !isLoading">There are no recent exceptions 🐞</app-alert>
 
-            <ion-list lines="none">
+            <app-loading v-if="isLoading" />
+
+            <ion-list lines="none" v-if="!isLoading">
                 <exception-card
                     v-for="(exception, index) in exceptions"
                     :key="index"
@@ -45,10 +47,13 @@ import AppPullToRefresh from "@/components/AppPullToRefresh";
 import AppAlert from "@/components/AppAlert";
 import ExceptionService from "@/services/ExceptionService";
 import RefreshEvent from "@/mixins/RefreshEvent";
+import Loading from "../mixins/Loading";
+import AppLoading from "../components/AppLoading";
 
 export default {
     name: 'Dashboard',
     components: {
+        AppLoading,
         ExceptionCard,
         IonHeader,
         IonToolbar,
@@ -68,6 +73,7 @@ export default {
 
     mixins: [
         RefreshEvent,
+        Loading,
     ],
 
     computed: {
@@ -76,7 +82,7 @@ export default {
         },
     },
 
-    ionViewWillEnter() {
+    ionViewDidEnter() {
         this.getData();
     },
 
@@ -88,6 +94,8 @@ export default {
                 if (event) {
                     this.completeEvent(event);
                 }
+
+                this.hideLoading();
             });
         },
 
