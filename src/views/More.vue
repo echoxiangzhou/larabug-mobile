@@ -46,6 +46,14 @@
                                 LaraBug on Twitter
                             </ion-label>
                         </ion-item>
+
+                        <ion-item detail @click="openUrl('https://ploi.io/?ref=larabug-mobile-app')">
+                            <ion-img style="margin-inline: 0 15px;" src="https://ploi.io/favicon-32x32.png" slot="start"/>
+
+                            <ion-label class="-pr-4">
+                                Proudly deployed with <span class="font-bold">ploi</span>.io
+                            </ion-label>
+                        </ion-item>
                     </ion-list>
                 </div>
 
@@ -55,7 +63,7 @@
 
                 <div class="grid grid-cols-5 gap-2">
                     <div @click="openUrl(sponsor.url)" class="" v-for="(sponsor, index) in sponsors" :key="index">
-                        <img class="shadow border dark:border-none rounded-full" :src="sponsor.avatar" />
+                        <img class="shadow border dark:border-none rounded-full" :src="sponsor.avatar"/>
                     </div>
                 </div>
             </div>
@@ -64,14 +72,25 @@
 </template>
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonIcon, IonLabel } from '@ionic/vue';
-import { logoDiscord, happy, logoGithub, logoTwitter } from "ionicons/icons";
+import {
+    IonPage,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonList,
+    IonItem,
+    IonIcon,
+    IonLabel,
+    IonImg
+} from '@ionic/vue';
+import {logoDiscord, happy, logoGithub, logoTwitter} from "ionicons/icons";
 import config from "@/config";
 import SponsorService from "@/services/SponsorService";
 
-export default  {
+export default {
     name: 'More',
-    components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonList, IonItem, IonIcon, IonLabel },
+    components: {IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonList, IonItem, IonIcon, IonLabel, IonImg},
     computed: {
         client() {
             return new SponsorService();

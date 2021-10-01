@@ -15,11 +15,12 @@ class UserService extends Service {
         return await this._fetch(`/user`);
     }
 
-    async registerPushNotificationToken(token: string) {
+    async registerPushNotificationToken(token: string, device: string) {
         return await this._fetch(`/register-fcm-token`, {
             method: 'POST',
             body: JSON.stringify({
                 token: token,
+                device: device
             })
         });
     }

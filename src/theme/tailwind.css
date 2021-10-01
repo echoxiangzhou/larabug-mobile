@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+ion-item {
+    --padding-start: 0px !important;
+}

@@ -8,6 +8,10 @@
 import {IonApp, IonRouterOutlet} from '@ionic/vue';
 import {defineComponent} from 'vue';
 import {SplashScreen} from '@capacitor/splash-screen';
+import {
+    ActionPerformed,
+    PushNotifications,
+} from '@capacitor/push-notifications';
 
 export default defineComponent({
     name: 'App',
@@ -16,14 +20,14 @@ export default defineComponent({
         IonRouterOutlet
     },
 
-    created(){
+    created() {
+        PushNotifications.addListener('pushNotificationActionPerformed',
+            (notification: ActionPerformed) => {
+                this.$router.push(`/tabs/dashboard/exceptions/${notification.notification.data.exception_id}`)
+            }
+        );
+
         SplashScreen.hide();
     }
 });
 </script>
-
-<style>
-ion-item {
-    --padding-start: 0px;
-}
-</style>

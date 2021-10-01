@@ -24,14 +24,19 @@
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
+                    <div class="col-span-2" v-if="!$store.state.pushNotificationStatus">
+                        <ion-button @click="setupPushNotifications" size="block">
+                            Enable push notifications
+                        </ion-button>
+                    </div>
+
+                    <div class="col-span-2" v-if="$store.state.pushNotificationStatus">
+                        <app-alert type="success">You currently have push notifications enabled. You can manage your devices in your profile on larabug.com</app-alert>
+                    </div>
+
                     <div>
                         <ion-button @click="openAccountSettings" size="block">
                             Manage account
-                        </ion-button>
-                    </div>
-                    <div>
-                        <ion-button @click="setupPushNotifications" size="block">
-                            Enable push notifications
                         </ion-button>
                     </div>
                     <div>
@@ -53,11 +58,13 @@
 import {IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButton} from '@ionic/vue';
 import config from "@/config";
 import {PushNotifications} from "@capacitor/push-notifications";
+import { Device } from '@capacitor/device';
 import UserService from "@/services/UserService";
+import AppAlert from "@/components/AppAlert";
 
 export default {
     name: 'Profile',
-    components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonButton },
+    components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonButton, AppAlert },
     data() {
         return {
             config: config,
@@ -102,7 +109,9 @@ export default {
         async registerToken(token) {
             await this.$store.dispatch('togglePushNotifications');
 
-            await this.client.registerPushNotificationToken(token);
+            const device = await Device.getInfo();
+
+            await this.client.registerPushNotificationToken(token, device);
         }
     },
 }
