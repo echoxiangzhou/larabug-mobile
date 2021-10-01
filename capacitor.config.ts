@@ -4,7 +4,13 @@ const config: CapacitorConfig = {
     appId: 'com.larabug.app',
     appName: 'LaraBug',
     webDir: 'dist',
-    bundledWebRuntime: false
+    bundledWebRuntime: false,
+
+    plugins: {
+        PushNotifications: {
+            presentationOptions: ["badge", "sound", "alert"],
+        },
+    },
 };
 
 export default config;

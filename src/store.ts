@@ -9,6 +9,7 @@ export const store = createStore<RootState>({
     state: {
         user: {},
         token: '',
+        pushNotificationStatus: false,
     },
     mutations: {
         login(state, token: string) {
@@ -20,6 +21,12 @@ export const store = createStore<RootState>({
         logout(state) {
             state.user = {};
             state.token = '';
+            state.pushNotificationStatus = false; // disable push notifications
+        },
+        update(state, payload) {
+            Object.keys(payload).forEach((key: string) => {
+                state[key] = payload[key];
+            });
         },
     },
     actions: {
@@ -37,6 +44,9 @@ export const store = createStore<RootState>({
         },
         logout(context) {
             context.commit('logout');
+        },
+        update(context, payload) {
+            context.commit('update', payload);
         },
         async init(context) {
             const savedState = await Storage.get({
