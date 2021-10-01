@@ -10,6 +10,8 @@
                 <ion-toolbar>
                     <ion-title size="large">Projects</ion-title>
                 </ion-toolbar>
+
+                <ion-searchbar color="light" v-model="search" debounce="500"></ion-searchbar>
             </ion-header>
 
             <app-pull-to-refresh :do-refresh="doRefresh"></app-pull-to-refresh>
@@ -26,6 +28,18 @@
                     :total="project.total_exceptions"/>
             </ion-list>
 
+            <ion-infinite-scroll
+                @ionInfinite="getData($event)"
+                threshold="100px"
+                id="infinite-scroll"
+                :disabled="isDisabled"
+            >
+                <ion-infinite-scroll-content
+                    loading-spinner="bubbles"
+                    loading-text="Loading more projects">
+                </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+
             <ion-fab vertical="bottom" horizontal="end" slot="fixed">
                 <ion-fab-button @click="$router.push(`/tabs/projects/create`)">
                     <ion-icon :icon="add"></ion-icon>
@@ -36,7 +50,7 @@
 </template>
 
 <script>
-import {IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonFab, IonFabButton, IonIcon} from '@ionic/vue';
+import {IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonFab, IonFabButton, IonIcon, IonSearchbar, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue';
 import ProjectCard from "@/components/Project/ProjectCard.vue";
 import ProjectService from "@/services/ProjectService";
 import AppPullToRefresh from "@/components/AppPullToRefresh";
@@ -49,7 +63,7 @@ import {
 export default {
     name: 'Projects',
     components: {
-        ProjectCard, IonList, IonHeader, IonToolbar, IonTitle, IonContent, IonPage,
+        ProjectCard, IonList, IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonSearchbar, IonInfiniteScroll, IonInfiniteScrollContent,
         IonFab,
         IonFabButton,
         IonIcon,
@@ -64,6 +78,9 @@ export default {
     data() {
         return {
             projects: [],
+            isDisabled: false,
+            page: 1,
+            search: '',
         }
     },
     mixins: [
@@ -74,22 +91,48 @@ export default {
             return new ProjectService();
         },
     },
-    ionViewDidEnter() {
+    ionViewWillEnter() {
         this.getData();
     },
     methods: {
         async getData(event) {
-            await this.client.all().then(res => {
-                this.projects = res.data;
+            if (event) {
+                this.page++;
+            }
 
+            await this.client.all(this.page, this.search).then(res => {
+                console.log(res);
+                console.log(res.data);
                 if (event) {
-                    this.completeEvent(event);
+                    console.log('Test');
+                    this.projects = [...this.projects, ...res.data];
+                    event.target.complete();
+
+                    if (this.page === res.meta.last_page) {
+                        this.isDisabled = true;
+                    }
+                } else {
+                    this.projects = res.data;
                 }
             });
         },
 
-        doRefresh: function (event) {
-            this.getData(event);
+        doRefresh: async function (event) {
+            this.page = 1;
+
+            await this.client.all(this.page, this.search).then(res => {
+                this.projects = res.data;
+                this.completeEvent(event);
+            });
+        },
+    },
+    watch: {
+        search: {
+            handler() {
+                this.getData();
+            },
+            immediate: false,
+            deep: false,
         },
     },
 }

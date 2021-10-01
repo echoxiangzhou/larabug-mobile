@@ -1,8 +1,8 @@
 import Service from "@/services/Service";
 
 class ProjectService extends Service {
-    async all() {
-        return await this._fetch(`/projects`);
+    async all(page = 1, search = '') {
+        return await this._fetch(`/projects?page=${page}&search=${search}`);
     }
 
     async show(id: string) {
