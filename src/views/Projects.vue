@@ -92,6 +92,7 @@ export default {
         },
     },
     ionViewWillEnter() {
+        this.page = 1;
         this.getData();
     },
     methods: {
