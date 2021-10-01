@@ -50,7 +50,7 @@
                 </div>
 
                 <div>
-                    <h2 class="text-lg">Shout out to our awesome sponsors</h2>
+                    <h2 class="text-lg font-semibold">Shout out to our awesome sponsors</h2>
                 </div>
 
                 <div class="grid grid-cols-5 gap-2">
