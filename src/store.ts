@@ -55,6 +55,10 @@ export const store = createStore<RootState>({
                 const data = JSON.parse(savedState.value);
                 await context.commit('login', data.token);
                 await context.commit('user', data.user);
+
+                if (data.pushNotificationStatus) {
+                    context.commit('togglePushNotifications');
+                }
             } else {
                 await context.dispatch('logout');
             }
