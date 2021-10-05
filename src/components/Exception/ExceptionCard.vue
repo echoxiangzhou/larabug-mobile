@@ -12,7 +12,7 @@
 
                 <div>
                     <h2 class="break-all">{{ exceptionTitle }}</h2>
-                    <p class="text-gray-500 text-sm">{{ date }} | {{ localStatus }}</p>
+                    <p class="text-gray-500 text-sm">{{ date }} | {{ projectTitle ? `${projectTitle} | ` : '' }}{{ localStatus }}</p>
                 </div>
             </div>
         </ion-item>
@@ -50,6 +50,10 @@ export default {
             required: true,
         },
         date: {
+            type: String,
+            required: false,
+        },
+        projectTitle: {
             type: String,
             required: false,
         },

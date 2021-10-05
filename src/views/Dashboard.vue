@@ -27,6 +27,7 @@
                     :title="exception.exception"
                     :status="exception.status"
                     :id="exception.id"
+                    :project-title="exception.project_title"
                 />
             </ion-list>
         </ion-content>
