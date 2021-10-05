@@ -95,7 +95,7 @@ export default {
             return new ExceptionService();
         },
     },
-    ionViewWillEnter() {
+    ionViewDidEnter() {
         this.getData();
     },
     methods: {
