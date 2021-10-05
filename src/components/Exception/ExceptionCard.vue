@@ -11,7 +11,7 @@
                 </div>
 
                 <div>
-                    <h2 class="break-all">{{ `${title.substr(0, 100)}...` }}</h2>
+                    <h2 class="break-all">{{ exceptionTitle }}</h2>
                     <p class="text-gray-500 text-sm">{{ date }} | {{ localStatus }}</p>
                 </div>
             </div>
@@ -63,6 +63,13 @@ export default {
     computed: {
         client() {
             return new ExceptionService();
+        },
+        exceptionTitle() {
+            if (this.title.length > 100) {
+                return `${this.title.substr(0, 100)}...`;
+            }
+
+            return this.title;
         },
     },
     methods: {
