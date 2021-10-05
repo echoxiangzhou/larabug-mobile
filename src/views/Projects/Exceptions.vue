@@ -26,13 +26,11 @@
 
             <ion-list lines="none" v-if="!isLoading">
                 <exception-card
-                    v-for="(exception, index) in exceptions"
-                    :key="index"
+                    v-for="exception in exceptions"
+                    :key="exception.id"
+                    :exception="exception"
+                    :hide-project-name="true"
                     @click="$router.push(`/tabs/projects/${$route.params.id}/exceptions/${exception.id}`)"
-                    :title="exception.exception"
-                    :status="exception.status"
-                    :date="exception.human_date"
-                    :id="exception.id"
                 />
             </ion-list>
 

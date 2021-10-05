@@ -35,7 +35,7 @@
                 </ion-segment>
 
                 <list label="General" v-if="tab === 'general'">
-                    <list-item label="Class" :value="exception.class" />
+                    <list-item v-if="exception.class" label="Class" :value="exception.class" />
 
                     <list-item label="Exception" :value="exception.exception" />
 

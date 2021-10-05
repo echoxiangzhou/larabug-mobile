@@ -12,14 +12,14 @@
 
                 <div>
                     <h2 class="break-all">{{ exceptionTitle }}</h2>
-                    <p class="text-gray-500 text-sm">{{ date }} | {{ projectTitle ? `${projectTitle} | ` : '' }}{{ localStatus }}</p>
+                    <p class="text-gray-500 text-sm">{{ exception.human_date }} &centerdot; {{ !hideProjectName ? `${exception.project_title} &centerdot; ` : '' }}{{ localStatus }}</p>
                 </div>
             </div>
         </ion-item>
 
         <ion-item-options side="end">
             <ion-item-option @click="deleteException($event)">Delete</ion-item-option>
-            <ion-item-option class="bg-blue-500" v-if="status === 'open'" @click="markAsRead($event)">Read</ion-item-option>
+            <ion-item-option class="bg-blue-500" v-if="exception.status === 'open'" @click="markAsRead($event)">Read</ion-item-option>
         </ion-item-options>
     </ion-item-sliding>
 </template>
@@ -37,26 +37,14 @@ export default {
         IonItem,
     },
     props: {
-        id: {
-            type: String,
+        exception: {
+            type: Object,
             required: true,
         },
-        title: {
-            type: String,
-            required: true,
-        },
-        status: {
-            type: String,
-            required: true,
-        },
-        date: {
-            type: String,
-            required: false,
-        },
-        projectTitle: {
-            type: String,
-            required: false,
-        },
+        hideProjectName: {
+            type: Boolean,
+            default: false,
+        }
     },
     data() {
         return {
@@ -69,18 +57,18 @@ export default {
             return new ExceptionService();
         },
         exceptionTitle() {
-            if (this.title.length > 100) {
-                return `${this.title.substr(0, 100)}...`;
+            if (this.exception.exception.length > 100) {
+                return `${this.exception.exception.substr(0, 100)}...`;
             }
 
-            return this.title;
+            return this.exception.exception;
         },
     },
     methods: {
         async markAsRead(event) {
             event.stopPropagation();
 
-            await this.client.markAsRead(this.id).then(res => {
+            await this.client.markAsRead(this.exception.id).then(res => {
                 if (res.data) {
                     this.localStatus = res.data.status;
                     this.$refs.sliding.$el.close();
@@ -90,7 +78,7 @@ export default {
         async deleteException(event) {
             event.stopPropagation();
 
-            await this.client.delete(this.id).then(() => {
+            await this.client.delete(this.exception.id).then(() => {
                 this.deleted = true;
                 this.$refs.sliding.$el.close();
             });
@@ -99,7 +87,7 @@ export default {
     watch: {
         status: {
             handler() {
-                this.localStatus = this.status;
+                this.localStatus = this.exception.status;
             },
             immediate: true,
             deep: false,
