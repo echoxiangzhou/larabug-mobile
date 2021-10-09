@@ -23,7 +23,6 @@
                     v-for="exception in exceptions"
                     :exception="exception"
                     :key="exception.id"
-                    @click="$router.push(`/tabs/dashboard/exceptions/${exception.id}`)"
                 />
             </ion-list>
         </ion-content>

@@ -2,10 +2,13 @@
     <ion-page>
         <ion-header>
             <ion-toolbar>
-                <ion-buttons>
+                <ion-buttons slot="start">
                     <ion-back-button></ion-back-button>
                 </ion-buttons>
                 <ion-title>{{ project.title }}</ion-title>
+            </ion-toolbar>
+            <ion-toolbar>
+                <ion-searchbar mode="ios" color="light" v-model="search" debounce="500" placeholder="Zoeken.."></ion-searchbar>
             </ion-toolbar>
         </ion-header>
 
@@ -14,8 +17,6 @@
                 <ion-toolbar>
                     <ion-title size="large">{{ project.title }}</ion-title>
                 </ion-toolbar>
-
-                <ion-searchbar color="light" v-model="search" debounce="500"></ion-searchbar>
             </ion-header>
 
             <app-pull-to-refresh :do-refresh="doRefresh"></app-pull-to-refresh>

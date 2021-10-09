@@ -10,7 +10,8 @@
             :type="type"
             :id="`input_${name}`"
             :name="name"
-            @change="$emit('update:modelValue', $event.target.value)">
+            :value="modelValue"
+            @input="$emit('update:modelValue', $event.target.value)">
 
         <textarea
             v-if="type === 'textarea'"

@@ -4,14 +4,15 @@
             <ion-toolbar>
                 <ion-title>Projects</ion-title>
             </ion-toolbar>
+            <ion-toolbar>
+                <ion-searchbar mode="ios" color="light" v-model="search" debounce="500" placeholder="Zoeken.."></ion-searchbar>
+            </ion-toolbar>
         </ion-header>
         <ion-content :fullscreen="true">
             <ion-header collapse="condense">
                 <ion-toolbar>
                     <ion-title size="large">Projects</ion-title>
                 </ion-toolbar>
-
-                <ion-searchbar color="light" v-model="search" debounce="500"></ion-searchbar>
             </ion-header>
 
             <app-pull-to-refresh :do-refresh="doRefresh"></app-pull-to-refresh>
@@ -20,14 +21,11 @@
 
             <app-loading v-if="isLoading" />
 
-            <ion-list v-if="!isLoading">
+            <ion-list v-if="!isLoading" lines="none">
                 <project-card
-                    @click="$router.push(`/tabs/projects/${project.id}`)"
-                    v-for="(project, index) in projects"
-                    :key="index"
-                    :name="project.title"
-                    :unread="project.unread_exceptions"
-                    :total="project.total_exceptions"/>
+                    v-for="project in projects"
+                    :key="project.id"
+                    :project="project"/>
             </ion-list>
 
             <ion-infinite-scroll

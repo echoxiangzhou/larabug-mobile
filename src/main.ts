@@ -24,6 +24,7 @@ import '@ionic/vue/css/core.css';
 /* Theme variables */
 import './theme/variables.css';
 import './theme/tailwind.css';
+import './theme/android.css';
 
 store.dispatch('init').then(() => {
   const app = createApp(App)
