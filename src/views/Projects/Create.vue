@@ -31,7 +31,7 @@
 <script>
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonButton } from '@ionic/vue';
 import ProjectService from "@/services/ProjectService";
-import InputItem from "../../components/form/InputItem";
+import InputItem from "../../components/Form/InputItem";
 
 export default {
     name: 'Exceptions',

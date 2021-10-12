@@ -30,7 +30,7 @@
 
 <script>
 import { IonPage, IonContent, IonButton } from "@ionic/vue";
-import InputItem from "../../components/form/InputItem";
+import InputItem from "../../components/Form/InputItem";
 import UserService from "../../services/UserService";
 import Crypto from "../../helper/Crypto";
 
