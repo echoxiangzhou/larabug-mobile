@@ -58,15 +58,23 @@
                     <list-item label="Trace" :value="exception.error" />
                 </list>
             </div>
+
+            <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+                <ion-fab-button @click="share">
+                    <ion-icon :icon="shareOutline"></ion-icon>
+                </ion-fab-button>
+            </ion-fab>
         </ion-content>
     </ion-page>
 </template>
 
 <script>
-import { IonPage, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonSegment, IonSegmentButton, IonLabel } from "@ionic/vue";
+import { IonPage, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonSegment, IonSegmentButton, IonLabel, IonFabButton, IonFab, IonIcon } from "@ionic/vue";
 import ListItem from "../../components/List/ListItem";
 import List from "../../components/List/List";
 import ExceptionService from "../../services/ExceptionService";
+import { shareOutline } from "ionicons/icons";
+import { Share } from "@capacitor/share";
 
 export default {
     name: "Show",
@@ -82,7 +90,10 @@ export default {
         IonButtons,
         IonBackButton,
         IonSegment,
-        IonSegmentButton
+        IonSegmentButton,
+        IonFabButton,
+        IonFab,
+        IonIcon,
     },
     data() {
         return {
@@ -107,6 +118,27 @@ export default {
 
         segmentChanged(ev) {
             this.tab = ev.detail.value;
+        },
+
+        async share() {
+            if (!this.exception.public_hash) {
+                // Toggle to public exception
+                await this.client.togglePublic(this.exception.id).then(res => {
+                    this.exception = res.data;
+                });
+            }
+
+            await Share.share({
+                title: this.exception.exception,
+                text: `${this.exception.exception} at ${this.exception.created_at} in ${this.exception.project_title}`,
+                url: `${this.exception.public_hash_url}`,
+                dialogTitle: 'Share with buddies',
+            });
+        },
+    },
+    setup() {
+        return {
+            shareOutline,
         }
     },
 }
