@@ -1,8 +1,6 @@
 <template>
     <ion-item-sliding v-if="!deleted" ref="sliding">
-        <ion-item
-        button
-        @click="$router.push(`/tabs/dashboard/exceptions/${exception.id}`)">
+        <ion-item button>
             <div class="p-4 flex relative space-x-3">
                 <div>
                     <div class="bg-red-700 w-2 h-full rounded-xl block" v-if="localStatus === 'open'"></div>

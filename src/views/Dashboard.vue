@@ -20,6 +20,7 @@
 
             <ion-list lines="none" v-if="!isLoading">
                 <exception-card
+                    @click="$router.push(`/tabs/dashboard/exceptions/${exception.id}`)"
                     v-for="exception in exceptions"
                     :exception="exception"
                     :key="exception.id"
