@@ -61,7 +61,7 @@
                     <h2 class="text-lg font-semibold">Shout out to our awesome sponsors</h2>
                 </div>
 
-                <div class="grid grid-cols-5 gap-2">
+                <div class="grid grid-cols-5 md:grid-cols-10 gap-2">
                     <div @click="openUrl(sponsor.url)" class="" v-for="(sponsor, index) in sponsors" :key="index">
                         <img class="shadow border dark:border-none rounded-full" :src="sponsor.avatar"/>
                     </div>

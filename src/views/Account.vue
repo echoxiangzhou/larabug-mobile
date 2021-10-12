@@ -25,8 +25,9 @@
 
                 <div class="grid grid-cols-2 gap-4">
                     <div class="col-span-2" v-if="!$store.state.pushNotificationStatus">
-                        <ion-button @click="setupPushNotifications" size="block">
-                            Enable push notifications
+                        <ion-button :disabled="loading" @click="setupPushNotifications" size="block">
+                            <span v-if="!loading">Enable push notifications</span>
+                            <span v-if="loading">Processing..</span>
                         </ion-button>
                     </div>
 
@@ -67,6 +68,7 @@ export default {
     components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonButton, AppAlert },
     data() {
         return {
+            loading: false,
             config: config,
         }
     },
@@ -81,14 +83,20 @@ export default {
         },
 
         setupPushNotifications() {
+            if (this.$store.state.pushNotificationStatus) {
+                return;
+            }
+
+            this.loading = true;
+
             PushNotifications.requestPermissions()
                 .then(result => {
                     if (result.receive === 'granted') {
                         // Register with Apple / Google to receive push via APNS/FCM
                         PushNotifications.register();
                     } else {
-                        // Show some error
-                        console.log('User declined the push notification permission');
+                        // User denied push
+                        this.loading = false;
                     }
                 });
 
@@ -100,8 +108,8 @@ export default {
 
             // Some issue with our setup and push will not work
             PushNotifications.addListener('registrationError',
-                (error) => {
-                    console.log('Error on registration: ' + JSON.stringify(error));
+                () => {
+                    this.loading = false;
                 }
             );
         },
@@ -111,7 +119,9 @@ export default {
 
             const device = await Device.getInfo();
 
-            await this.client.registerPushNotificationToken(token, device);
+            await this.client.registerPushNotificationToken(token, device).then(() => {
+                this.loading = false;
+            });
         }
     },
 }

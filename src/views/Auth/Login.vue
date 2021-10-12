@@ -16,12 +16,11 @@
 
                         <p class="text-red-500" v-if="error">{{ error }}</p>
 
-                        <ion-button size="block" @click="login">
-                            Login
+                        <ion-button size="block" :disabled="loading" @click="login">
+                            <span v-if="loading">Processing..</span>
+                            <span v-else>Log in</span>
                         </ion-button>
-
                     </form>
-
                 </div>
             </div>
         </ion-content>
@@ -44,6 +43,7 @@ export default {
     },
     data() {
         return {
+            loading: false,
             error: '',
             email: null,
             password: null,
@@ -56,9 +56,11 @@ export default {
     },
     methods: {
         async login() {
+            this.loading = true;
             const crypto = new Crypto();
 
             await this.client.login(this.email, this.password).then(async (res) => {
+                this.loading = false;
                 await this.$store.dispatch('login', crypto.encrypt(res.token));
                 await this.$store.dispatch('user', res.user);
 
@@ -70,6 +72,7 @@ export default {
             }, err => {
                 this.error = err.errors;
                 this.password = '';
+                this.loading = false;
             });
         },
     },
