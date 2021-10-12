@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "574425978056",
+    "firebase_url": "https://larabug-e2494-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "larabug-e2494",
+    "storage_bucket": "larabug-e2494.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574425978056:android:53c03e6564b7c0baa441fd",
+        "android_client_info": {
+          "package_name": "com.larabug.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574425978056-dh6frmji4s1h1vvspp9pv57cmjv07h0f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXla9q1i7AQ9r2EhtT-00H347tg4csMus"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574425978056-dh6frmji4s1h1vvspp9pv57cmjv07h0f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "574425978056-0ijh9c4a11l9rrfr6770d445hibgtpn3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.larabug.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
