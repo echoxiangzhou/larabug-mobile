@@ -23,13 +23,13 @@
                             </ion-label>
                         </ion-item>
 
-                        <ion-item detail @click="openUrl('https://github.com/sponsors/Cannonb4ll')">
-                            <ion-icon class="text-yellow-400" slot="start" :icon="happy"></ion-icon>
+<!--                        <ion-item detail @click="openUrl('https://github.com/sponsors/Cannonb4ll')">-->
+<!--                            <ion-icon class="text-yellow-400" slot="start" :icon="happy"></ion-icon>-->
 
-                            <ion-label>
-                                Become a sponsor
-                            </ion-label>
-                        </ion-item>
+<!--                            <ion-label>-->
+<!--                                Become a sponsor-->
+<!--                            </ion-label>-->
+<!--                        </ion-item>-->
 
                         <ion-item detail @click="openUrl('https://github.com/larabug')">
                             <ion-icon slot="start" :icon="logoGithub"></ion-icon>
@@ -55,16 +55,6 @@
                             </ion-label>
                         </ion-item>
                     </ion-list>
-                </div>
-
-                <div>
-                    <h2 class="text-lg font-semibold">Shout out to our awesome sponsors</h2>
-                </div>
-
-                <div class="grid grid-cols-5 md:grid-cols-10 gap-2">
-                    <div @click="openUrl(sponsor.url)" class="" v-for="(sponsor, index) in sponsors" :key="index">
-                        <img class="shadow border dark:border-none rounded-full" :src="sponsor.avatar"/>
-                    </div>
                 </div>
             </div>
         </ion-content>
@@ -103,17 +93,17 @@ export default {
         }
     },
     methods: {
-        async getData() {
-            await this.client.all().then(res => {
-                this.sponsors = res.data;
-            });
-        },
+        // async getData() {
+        //     await this.client.all().then(res => {
+        //         this.sponsors = res.data;
+        //     });
+        // },
         openUrl(url) {
             window.open(url, '_blank');
         },
     },
     ionViewWillEnter() {
-        this.getData();
+        // this.getData();
     },
     setup() {
         return {
