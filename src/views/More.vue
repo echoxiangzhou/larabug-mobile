@@ -35,7 +35,7 @@
                             <ion-icon slot="start" :icon="logoGithub"></ion-icon>
 
                             <ion-label>
-                                LaraBug on Github
+                                LaraBug on GitHub
                             </ion-label>
                         </ion-item>
 
